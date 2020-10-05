@@ -15,8 +15,8 @@ import os
 
 
 import dj_database_url
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-db_from_env = dj_database_url.config(conn_max_age=500)
+
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -30,9 +30,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -93,7 +94,8 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
     }
 }
-DATABASES['default'].update(db_from_env)
+
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500))
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
