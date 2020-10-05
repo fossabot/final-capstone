@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+
+
+import dj_database_url
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+db_from_env = dj_database_url.config(conn_max_age=500)
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -47,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Heroku
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'security_capstone.urls'
@@ -84,7 +93,7 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
     }
 }
-
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -122,8 +131,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = STATIC_ROOT + '/static/'
 
 # Configure Django App for Heroku.
 import django_heroku
