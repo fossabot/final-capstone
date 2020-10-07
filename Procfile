@@ -1,1 +1,1 @@
-web: gunicorn security_capstone.wsgi --log-file -
+web: gunicorn security_capstone.security_capstone.wsgi --log-file -
