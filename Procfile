@@ -1,1 +1,0 @@
-web: gunicorn --env=DJANGO_SETTINGS_MODULE=security_capstone.security_capstone.settings security_capstone.security_capstone.wsgi --log-file -
